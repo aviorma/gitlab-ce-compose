@@ -50,32 +50,34 @@ GITLAB_DEFAULT_TOKEN=******
 - Clone the repository mounted on dedicated block device in /opt/gitlab, template the gitlab.rb then start the cluster with docker-compose.
 - A post script will create the users and groups then it will assign the relevant permissions through Gitlab API.
 
-```bash
-git clone git@github.com:aviorma/gitlab-ce-compose.git /opt/gitlab; cd $_
-find volumes/ -type f -name '.gitkeep' -exec rm -f {} \;
+   ```bash
+   sudo su -
+   git clone git@github.com:aviorma/gitlab-ce-compose.git /opt/gitlab; cd $_
+   find volumes/ -type f -name '.gitkeep' -exec rm -f {} \;
+   install -d -o root -g root -m 0755 /opt/gitlab/volumes
 
-set -a && source .env &&  envsubst < config/gitlab.rb > "volumes/config/gitlab.rb"
-docker-compose up -d
-bash scripts/users-and-groups.sh
-```
+   set -a && source .env &&  envsubst < config/gitlab.rb > "volumes/config/gitlab.rb"
+   docker-compose up -d
+   bash scripts/users-and-groups.sh
+   ```
 
 ### Access Gitlab UI
-```bash
-https://IP_ADDRESS:8443/
-```
+   ```bash
+   https://IP_ADDRESS:8443/
+   ```
 
 ### Check the folders tree that has been cerated
 
-```bash
-> find ./volumes/ -maxdepth 1 -type d
-./volumes/
-./volumes/config
-./volumes/redis
-./volumes/runner
-./volumes/postgres
-./volumes/logs
-./volumes/data
-```
+   ```bash
+   > find ./volumes/ -maxdepth 1 -type d
+   ./volumes/
+   ./volumes/config
+   ./volumes/redis
+   ./volumes/runner
+   ./volumes/postgres
+   ./volumes/logs
+   ./volumes/data
+   ```
 
 ### Check Gitlab services status
 
