@@ -62,17 +62,8 @@ grant_merge_permissions() {
 }
 
 # Set variables
-TOKEN=admin-token
-GITLAB_URL=https://localhost:8443
-
-# Provide a password for the admin user
-if [ -z "$1" ]; then
-  echo "Usage: $0 <password>"
-  echo "Please provide a password for the admin user."
-  exit 1
-fi
-
-password="$1"
+TOKEN="${GITLAB_DEFAULT_TOKEN}"
+GITLAB_URL="https://${GITLAB_HOST}:${GITLAB_NGINX_SECURED_PORT}"
 
 # Generate GitLab token
 generate_gitlab_token "$TOKEN"

@@ -1,0 +1,44 @@
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+*.log
+
+# Ignore user-specific files
+init/init.sh
+
+# Ignore temporary files
+*.swp
+*~
+
+# Ignore development and editor-related files
+.vscode/
+.idea/
+
+# Ignore node_modules for Node.js projects
+node_modules/
+
+# Ignore compiled binaries and libraries
+*.o
+*.pyc
+*.so
+*.dll
+
+# Ignore virtual environment
+venv/
+.env/
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+
+# Ignore Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignore local configuration files
+.gitlab/config/
+.gitlab/secrets/
+
+# Ignore generated documentation
+docs/_build/
+

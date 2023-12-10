@@ -5,6 +5,7 @@ services:
     restart: always
     container_name: gitlab
     hostname: "${GITLAB_HOST}"
+    shm_size: '256m'
     environment:
       - TZ=${TZ}
     volumes:
@@ -12,7 +13,6 @@ services:
       - './volumes/logs:/var/log/gitlab'
       - './volumes/data:/var/opt/gitlab'
     ports:
-      - ${GITLAB_NGINX_INSECURED_PORT}:80
       - ${GITLAB_NGINX_SECURED_PORT}:443
     depends_on:
       - redis
@@ -30,6 +30,8 @@ services:
     volumes:
       - ./volumes/runner:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock:rw
+    networks:
+      - default
 
   postgres:
     image: postgres:${POSTGRES_VERSION}
@@ -43,6 +45,8 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=${POSTGRES_HOST_AUTH_METHOD}
     volumes:
       - ./volumes/postgres:/var/lib/postgresql/data
+    networks:
+      - default
 
   redis:
     image: redis:${REDIS_VERSION}
@@ -52,4 +56,6 @@ services:
       - --loglevel warning
     volumes:
       - ./volumes/redis:/var/lib/redis
+    networks:
+      - default
 

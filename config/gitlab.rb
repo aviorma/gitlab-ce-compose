@@ -61,6 +61,9 @@ external_url 'https://${GITLAB_HOST}:${GITLAB_NGINX_SECURED_PORT}'
 
 ################################################################################
 ## gitlab.yml configuration
+
+# alertmanager['listen_address'] = 'localhost:9093'
+
 ##! Docs: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/gitlab.yml.md
 ################################################################################
 # gitlab_rails['gitlab_ssh_host'] = 'ssh.host_example.com'
@@ -712,10 +715,10 @@ gitlab_rails['initial_root_password'] = '${GITLAB_ROOT_PASSWORD}'
 gitlab_rails['initial_shared_runners_registration_token'] = '${GITLAB_DEFAULT_TOKEN}'
 
 #### Toggle if root password should be printed to STDOUT during initialization
-# gitlab_rails['display_initial_root_password'] = false
+gitlab_rails['display_initial_root_password'] = false
 
 #### Toggle if initial root password should be written to /etc/gitlab/initial_root_password
-# gitlab_rails['store_initial_root_password'] = true
+gitlab_rails['store_initial_root_password'] = true
 
 #### Set path to an initial license to be used while bootstrapping GitLab.
 ####! **Only applicable on initial setup, future license updates need to be done via UI.
@@ -1319,7 +1322,7 @@ gitlab_rails['redis_host'] = "redis"
 ###! By default, reconfigure reloads postgresql if it is running. If you
 ###! change any of these settings, be sure to run `gitlab-ctl restart postgresql`
 ###! after reconfigure in order for the changes to take effect.
-postgresql['enable'] = true
+postgresql['enable'] = false
 # postgresql['listen_address'] = nil
 # postgresql['port'] = 5432
 
@@ -1613,8 +1616,9 @@ redis['enable'] = false
 
 nginx['enable'] = true
 nginx['client_max_body_size'] = '250m'
-nginx['redirect_http_to_https'] = false
-nginx['redirect_http_to_https_port'] = 80
+
+# nginx['redirect_http_to_https'] = true
+# nginx['redirect_http_to_https_port'] = 80
 
 ##! Most root CA's are included by default
 # nginx['ssl_client_certificate'] = "/etc/gitlab/ssl/ca.crt"
@@ -1645,7 +1649,7 @@ nginx['redirect_http_to_https_port'] = 80
 
 # nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
 # nginx['ssl_password_file'] = nil # Path to file with passphrases for ssl certificate secret keys
-nginx['listen_addresses'] = ['*', '[::]']
+# nginx['listen_addresses'] = ['*', '[::]']
 
 ##! **Defaults to forcing web browsers to always communicate using only HTTPS**
 ##! Docs: https://docs.gitlab.com/omnibus/settings/nginx.html#setting-http-strict-transport-security
